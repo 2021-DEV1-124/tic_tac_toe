@@ -12,8 +12,8 @@ export default function Game() {
     if (calculateWinner(squares) === 'X') {
       setWinner('X');
     }
-    if (calculateWinner(squares) === '0') {
-      setWinner('0');
+    if (calculateWinner(squares) === 'O') {
+      setWinner('O');
     }
   }, [squares]);
 
@@ -81,8 +81,7 @@ export default function Game() {
           {!playerTurn.playerO && !playerTurn.playerX && 'Welcome to Tic Tac Toe'}
           {playerTurn.playerO && !playerTurn.playerX && !winner && 'Player O turn'}
           {!playerTurn.playerO && playerTurn.playerX && !winner && 'Player X turn'}
-          {winner === 'X' && 'X player Won'}
-          {winner === 'O' && 'O player Won'}
+          {winner && `${winner} player Won`}
         </h1>
         <button type="button" onClick={() => startGameAction()}>
           {!playerTurn.playerO && !playerTurn.playerX && 'Start'}
