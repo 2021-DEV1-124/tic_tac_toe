@@ -10,7 +10,7 @@ const calculateWinner = (squares) => {
     [2, 4, 6],
   ];
 
-  for (let i = 0; i < winningLines.length; i++) {
+  for (let i = 0; i < winningLines.length; i += 1) {
     const [a, b, c] = winningLines[i];
 
     if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
