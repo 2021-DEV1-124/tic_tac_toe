@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Board from '../Board/Board';
 import './Game.scss';
+import calculateWinner from '../../services/calculateWinner';
 
 export default function Game() {
   const [playerTurn, setPlayerTurn] = useState({ playerX: false, playerO: false });
+  const [winner, setWinner] = useState(null);
   const [squares, setSquares] = useState(Array(9).fill(null));
+
+  useEffect(() => {
+    if (calculateWinner(squares) === 'X') {
+      setWinner('X');
+    }
+    if (calculateWinner(squares) === '0') {
+      setWinner('0');
+    }
+  }, [squares]);
 
   const startGameAction = () => {
     if (!playerTurn.playerO && !playerTurn.playerX) {
       setPlayerTurn({ playerX: true, playerO: false });
     }
     if (playerTurn.playerO || playerTurn.playerX) {
+      setWinner(null);
       setSquares(Array(9).fill(null));
       setPlayerTurn({ playerX: true, playerO: false });
     }
@@ -18,6 +30,10 @@ export default function Game() {
 
   const onSquareClick = (i) => {
     if (!playerTurn.playerO && !playerTurn.playerX) {
+      return;
+    }
+
+    if (winner) {
       return;
     }
 
@@ -63,8 +79,10 @@ export default function Game() {
       <div className="title-container">
         <h1>
           {!playerTurn.playerO && !playerTurn.playerX && 'Welcome to Tic Tac Toe'}
-          {playerTurn.playerO && !playerTurn.playerX && 'Player O turn'}
-          {!playerTurn.playerO && playerTurn.playerX && 'Player X turn'}
+          {playerTurn.playerO && !playerTurn.playerX && !winner && 'Player O turn'}
+          {!playerTurn.playerO && playerTurn.playerX && !winner && 'Player X turn'}
+          {winner === 'X' && 'X player Won'}
+          {winner === 'O' && 'O player Won'}
         </h1>
         <button type="button" onClick={() => startGameAction()}>
           {!playerTurn.playerO && !playerTurn.playerX && 'Start'}
