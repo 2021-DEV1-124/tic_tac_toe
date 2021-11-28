@@ -16,6 +16,48 @@ export default function Game() {
     }
   };
 
+  const onSquareClick = (i) => {
+    if (!playerTurn.playerO && !playerTurn.playerX) {
+      return;
+    }
+
+    if (playerTurn.playerX) {
+      setSquares((prevState) => {
+        const newState = prevState.map((value, index) => {
+          if (index === i && value === null) {
+            return 'X';
+          }
+          return value;
+        });
+
+        if (JSON.stringify(prevState) === JSON.stringify(newState)) {
+          return prevState;
+        }
+
+        setPlayerTurn({ playerX: false, playerO: true });
+        return newState;
+      });
+    }
+
+    if (playerTurn.playerO) {
+      setSquares((prevState) => {
+        const newState = prevState.map((value, index) => {
+          if (index === i && value === null) {
+            return 'O';
+          }
+          return value;
+        });
+
+        if (JSON.stringify(prevState) === JSON.stringify(newState)) {
+          return prevState;
+        }
+
+        setPlayerTurn({ playerX: true, playerO: false });
+        return newState;
+      });
+    }
+  };
+
   return (
     <div className="game">
       <div className="title-container">
@@ -31,7 +73,7 @@ export default function Game() {
       </div>
 
       <div className="game-board-wrapper">
-        <Board squares={squares} />
+        <Board squares={squares} onClick={onSquareClick} />
       </div>
     </div>
   );
