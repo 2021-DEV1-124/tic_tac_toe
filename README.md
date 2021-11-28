@@ -1,12 +1,12 @@
 # Getting Started with Tic Tac Toe App
 
-## Step 1
+# Step 1
 
-# Clone git repository
+## Clone git repository
 
-## Step 2
+# Step 2
 
-# Install packages
+## Install packages
 
 ### `yarn install`
 
