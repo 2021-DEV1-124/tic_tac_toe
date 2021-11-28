@@ -4,8 +4,8 @@ import './Board.scss';
 
 export default function Board({ onClick }) {
   return (
-    <div className="board">
-      {(Array(9).fill(null)).map((v, i) => <Square id={i} value={i} onClick={onClick} />)}
+    <div className="board" data-testid="board-container">
+      {(Array(9).fill(null)).map((v, i) => <Square key={i} id={i} value={i} onClick={onClick} />)}
     </div>
   );
 }
