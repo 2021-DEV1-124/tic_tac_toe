@@ -44,41 +44,21 @@ export default function Game() {
       return;
     }
 
-    if (playerTurn.playerX) {
-      setSquares((prevState) => {
-        const newState = prevState.map((value, index) => {
-          if (index === i && value === null) {
-            return 'X';
-          }
-          return value;
-        });
-
-        if (JSON.stringify(prevState) === JSON.stringify(newState)) {
-          return prevState;
+    setSquares((prevState) => {
+      const newState = prevState.map((value, index) => {
+        if (index === i && value === null) {
+          return playerTurn.playerX ? 'X' : 'O';
         }
-
-        setPlayerTurn({ playerX: false, playerO: true });
-        return newState;
+        return value;
       });
-    }
 
-    if (playerTurn.playerO) {
-      setSquares((prevState) => {
-        const newState = prevState.map((value, index) => {
-          if (index === i && value === null) {
-            return 'O';
-          }
-          return value;
-        });
+      if (JSON.stringify(prevState) === JSON.stringify(newState)) {
+        return prevState;
+      }
 
-        if (JSON.stringify(prevState) === JSON.stringify(newState)) {
-          return prevState;
-        }
-
-        setPlayerTurn({ playerX: true, playerO: false });
-        return newState;
-      });
-    }
+      setPlayerTurn({ playerX: !playerTurn.playerX, playerO: playerTurn.playerX });
+      return newState;
+    });
   };
 
   return (
