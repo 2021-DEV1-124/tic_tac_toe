@@ -17,8 +17,7 @@ export default function Game() {
     if (calculateWinner(squares) === 'O') {
       setWinner('O');
     }
-
-    if (calculateDraw(squares)) {
+    if (calculateDraw(squares) && winner !== null) {
       setDraw(true);
     }
   }, [squares]);
